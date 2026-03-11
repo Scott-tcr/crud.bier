@@ -1,6 +1,6 @@
 <<<<<<< HEAD
 <?php
-// auteur: Vul hier je naam in
+// auteur: Scott Hameeteman
 // functie: configuratiebestand
 
 define("DATABASE", "bieren");
