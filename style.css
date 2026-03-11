@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 label{
     display: inline-block;
     background-color:#00ffff;
@@ -11,4 +12,19 @@ table, th, td {
 
 th{
     background-color: grey;    
+=======
+label{
+    display: inline-block;
+    background-color:#00ffff;
+    width: 10%;
+}
+
+table, th, td {
+    background-color: aquamarine;
+    border: 1px solid black;
+}
+
+th{
+    background-color: grey;    
+>>>>>>> 8616bbad088c16b49022f6e03f95e8a6b4c44169
 }
