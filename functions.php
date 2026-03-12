@@ -28,9 +28,10 @@ include_once "config.php";
 
     // Menu-item   insert
     $txt = "
-    <h1>Crud Fietsen</h1>
+    <h1>Crud Bieren
+    </h1>
     <nav>
-		<a href='insert.php'>Toevoegen nieuwe fiets</a>
+		<a href='insert.php'>Toevoegen nieuwe bier</a>
     </nav><br>";
     echo $txt;
 
@@ -61,14 +62,14 @@ include_once "config.php";
  }
 
  // selecteer de rij van de opgeven id uit de table fietsen
- function getRecord($id){
+ function getRecord($bieren){
     // Connect database
     $conn = connectDb();
 
     // Select data uit de opgegeven table methode prepare
-    $sql = "SELECT * FROM " . CRUD_TABLE . " WHERE id = :id";
+    $sql = "SELECT * FROM " . CRUD_TABLE . " WHERE biercode = :biercode";
     $query = $conn->prepare($sql);
-    $query->execute([':id'=>$id]);
+    $query->execute([':biercode'=>$bieren]);
     $result = $query->fetch();
 
     return $result;
@@ -122,62 +123,36 @@ $table .= "<td>
 
 
 function updateRecord($row){
-
-    // Maak database connectie
     $conn = connectDb();
+    $sql = "UPDATE " . CRUD_TABLE . "
+            SET biercode = :biercode, naam = :naam, soort = :soort, stijl = :stijl, alcohol = :alcohol, brouwcode = :brouwcode
+            WHERE brouwcode = :brouwcode";
 
-    // Maak een query 
-    $sql = "UPDATE " . CRUD_TABLE .
-    " SET 
-        biercode = :biercode, 
-        naam = :naam, 
-        soort = :soort,
-        stijl = :stijl,
-        alcohol = :alcohol,
-        brouwcode = :brouwcode
-        
-    ";
-
-    // Prepare query
     $stmt = $conn->prepare($sql);
-    // Uitvoeren
     $stmt->execute([
-        ':biercode'=>$row['biercode'],
-        ':naam'=>$row['naam'],
-        ':soort'=>$row['soort'],
-        ':stijl'=>$row['stijl'],
-        ':alcohol'=>$row['alcohol'],
-        ':brouwcode'=>$row['brouwcode']
+        ':biercode' => isset($row['biercode']) ? $row['biercode'] : '',
+        ':naam'      => isset($row['naam']) ? $row['naam'] : '',
+        ':soort'     => isset($row['soort']) ? $row['soort'] : '',
+        ':stijl'     => isset($row['stijl']) ? $row['stijl'] : '',
+        ':alcohol'   => isset($row['alcohol']) ? $row['alcohol'] : '',
+        ':brouwcode' => isset($row['brouwcode']) ? $row['brouwcode'] : ''
     ]);
-
-    // test of database actie is gelukt
-    $retVal = ($stmt->rowCount() == 1) ? true : false ;
-    return $retVal;
 }
 
-function insertRecord($post){
-    // Maak database connectie
+
+function InsertRecord($row){
     $conn = connectDb();
+    $sql = "INSERT INTO " . CRUD_TABLE . " (biercode, naam, soort, stijl, alcohol, brouwcode) VALUES (:biercode, :naam, :soort, :stijl, :alcohol, :brouwcode)";
 
-    // Maak een query 
-    $sql = "
-        INSERT INTO " . CRUD_TABLE . " (merk, type, prijs)
-        VALUES (:merk, :type, :prijs) 
-    ";
-
-    // Prepare query
     $stmt = $conn->prepare($sql);
-    // Uitvoeren
     $stmt->execute([
-        ':merk'=>$_POST['merk'],
-        ':type'=>$_POST['type'],
-        ':prijs'=>$_POST['prijs']
+        ':biercode'  => isset($row['biercode']) ? $row['biercode'] : '',
+        ':naam'      => isset($row['naam']) ? $row['naam'] : '',
+        ':soort'     => isset($row['soort']) ? $row['soort'] : '',
+        ':stijl'     => isset($row['stijl']) ? $row['stijl'] : '',
+        ':alcohol'   => isset($row['alcohol']) ? $row['alcohol'] : '',
+        ':brouwcode' => isset($row['brouwcode']) ? $row['brouwcode'] : ''
     ]);
-
-    
-    // test of database actie is gelukt
-    $retVal = ($stmt->rowCount() == 1) ? true : false ;
-    return $retVal;  
 }
 
 function deleteRecord($id){
@@ -188,14 +163,14 @@ function deleteRecord($id){
     // Maak een query 
     $sql = "
     DELETE FROM " . CRUD_TABLE . 
-    " WHERE id = :id";
+    " WHERE biercode = :biercode";
 
     // Prepare query
     $stmt = $conn->prepare($sql);
 
     // Uitvoeren
     $stmt->execute([
-    ':id'=>$_GET['id']
+    ':biercode'=>$_GET['id']
     ]);
 
     // test of database actie is gelukt
