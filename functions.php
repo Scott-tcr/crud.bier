@@ -104,13 +104,13 @@ function printCrudTabel($result){
         
         // Wijzig knopje
 $table .= "<td>
-    <form method='post' action='update.php?id=".$row['bieren']."' >       
+    <form method='post' action='update.php?id=".$row['biercode']."' >       
         <button>Wzg</button>	 
     </form></td>";
 
 // Delete knopje
 $table .= "<td>
-    <form method='post' action='delete.php?id=".$row['bieren']."' >       
+    <form method='post' action='delete.php?id=".$row['biercode']."' >       
         <button>Verwijder</button>	 
     </form></td>";
         $table .= "</tr>";
@@ -129,20 +129,25 @@ function updateRecord($row){
     // Maak een query 
     $sql = "UPDATE " . CRUD_TABLE .
     " SET 
-        merk = :merk, 
-        type = :type, 
-        prijs = :prijs
-    WHERE id = :id
+        biercode = :biercode, 
+        naam = :naam, 
+        soort = :soort,
+        stijl = :stijl,
+        alcohol = :alcohol,
+        brouwcode = :brouwcode
+        
     ";
 
     // Prepare query
     $stmt = $conn->prepare($sql);
     // Uitvoeren
     $stmt->execute([
-        ':merk'=>$row['merk'],
-        ':type'=>$row['type'],
-        ':prijs'=>$row['prijs'],
-        ':id'=>$row['id']
+        ':biercode'=>$row['biercode'],
+        ':naam'=>$row['naam'],
+        ':soort'=>$row['soort'],
+        ':stijl'=>$row['stijl'],
+        ':alcohol'=>$row['alcohol'],
+        ':brouwcode'=>$row['brouwcode']
     ]);
 
     // test of database actie is gelukt
