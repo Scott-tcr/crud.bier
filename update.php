@@ -49,7 +49,23 @@
     <input type="number" id="alcohol" name="alcohol" required value="<?php echo $row['alcohol']; ?>"><br>
 
     <label for="brouwcode">Brouwcode:</label>
-    <input type="text" id="brouwcode" name="brouwcode" required value="<?php echo $row['brouwcode']; ?>"><br>
+    <?php
+$brouwcodes = getBrouwcodes();
+?>
+
+<label for="brouwcode">Brouwcode:</label>
+<select name="brouwcode" required>
+
+    <?php foreach($brouwcodes as $code): ?>
+        <option value="<?= $code['brouwcode']; ?>"
+            <?php if($code['brouwcode'] == $row['brouwcode']) echo "selected"; ?>>
+            
+            <?= $code['brouwcode']; ?>
+        
+        </option>
+    <?php endforeach; ?>
+
+</select><br>
 
     <input type="submit" name="btn_wzg" value="Wijzig">
   </form>

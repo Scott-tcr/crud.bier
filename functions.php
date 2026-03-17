@@ -23,6 +23,15 @@ include_once "config.php";
     }
 
  }
+function getBrouwcodes(){
+    $conn = connectDb();
+
+    $sql = "SELECT brouwcode FROM bier"; 
+    $query = $conn->prepare($sql);
+    $query->execute();
+
+    return $query->fetchAll();
+}
 
  function crudMain(){
 

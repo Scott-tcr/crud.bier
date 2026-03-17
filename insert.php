@@ -41,8 +41,21 @@
         <input type="number" step="0.1" id="alcohol" name="alcohol" required><br>
 
         <label for="brouwcode">Brouwcode:</label>
-        <input type="text" id="brouwcode" name="brouwcode" required><br>
+        <?php
+$brouwcodes = getBrouwcodes();
+?>
 
+<label for="brouwcode">Brouwcode:</label>
+<select id="brouwcode" name="brouwcode" required>
+    <option value="">-- Kies een brouwcode --</option>
+
+    <?php
+    foreach($brouwcodes as $row){
+        echo "<option value='".$row['brouwcode']."'>".$row['brouwcode']."</option>";
+    }
+    ?>
+
+</select><br>
         <input type="submit" name="btn_ins" value="Insert">
         </form>
         
